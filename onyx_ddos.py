@@ -94,12 +94,13 @@ def create_status_panel(thread_count, elapsed_time, attack_duration,
     return Panel(table, title="[dark_orange]Status[/]", border_style="light_steel_blue1")
 
 def create_progress_panel(progress):
+    """Progress panel using a table with one column, each cell contains two lines: URL and progress."""
     table = Table(show_header=False, box=None, padding=(0,1))
-    table.add_column("URL", style="cyan", width=15)
-    table.add_column("Progress", style="magenta", width=15)
+    table.add_column("", width=30)  # Adjust width as needed
     for url, info in progress.items():
-        short = url[:25] + '..' if len(url) > 25 else url
-        table.add_row(short, f"{info['completed']}/{info['total']} ({info['percentage']:.1f}%)")
+        short = url[:30] + '..' if len(url) > 30 else url
+        progress_text = f"  {info['completed']}/{info['total']} ({info['percentage']:.1f}%)"
+        table.add_row(f"{short}\n{progress_text}")
     return Panel(table, title="[dark_orange]Progress[/]", border_style="light_steel_blue1")
 
 def get_logs_panel():
